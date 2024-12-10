@@ -15,6 +15,7 @@ class Home:
 
         self.funcionarios = {}  # Armazena os funcionários cadastrados
         self.clientes = {}  # Armazena os clientes cadastrados
+        self.fornecedores = {}  # Armazena os fornecedores cadastrados
 
         self.container = Frame(self.root, bg="grey")
         self.container.pack(fill=BOTH, expand=True)
@@ -27,6 +28,7 @@ class Home:
         Label(self.container, text="Bem-vindo ao IOT!", font=("Arial", 20), bg="grey", fg="black").pack(pady=20)
         Button(self.container, text="Funcionário", width=20, command=self.pagina_funcionario).pack(pady=10)
         Button(self.container, text="Cliente", width=20, command=self.pagina_cliente).pack(pady=10)
+        Button(self.container, text="Fornecedor", width=20, command=self.pagina_fornecedor).pack(pady=10)
         Button(self.container, text="Sair", width=20, command=self.root.destroy).pack(pady=20)
 
     def pagina_funcionario(self):
@@ -34,6 +36,9 @@ class Home:
 
     def pagina_cliente(self):
         self.gerar_menu_principal("Cliente", self.adicionar_cliente, self.gerenciar_cliente)
+
+    def pagina_fornecedor(self):
+        self.gerar_menu_principal("Fornecedor", self.adicionar_fornecedor, self.gerenciar_fornecedor)
 
     def gerar_menu_principal(self, titulo, func_adicionar, func_gerenciar):
         for widget in self.container.winfo_children():
@@ -50,7 +55,10 @@ class Home:
     def adicionar_cliente(self):
         self.gerar_pagina_adicionar("Cliente", "Documento", False, self.salvar_cliente)
 
-    def gerar_pagina_adicionar(self, tipo, campo_chave, incluir_cargo, func_salvar):
+    def adicionar_fornecedor(self):
+        self.gerar_pagina_adicionar("Fornecedor", "CNPJ", False, self.salvar_fornecedor, incluir_segmento=True)
+
+    def gerar_pagina_adicionar(self, tipo, campo_chave, incluir_cargo, func_salvar, incluir_segmento=False):
         for widget in self.container.winfo_children():
             widget.destroy()
 
@@ -76,55 +84,81 @@ class Home:
             self.cargo_entry = Entry(frame_dados)
             self.cargo_entry.grid(row=1, column=3, pady=5, padx=10)
 
+        if incluir_segmento:
+            Label(frame_dados, text="Segmento:", font=("Arial", 12), bg="grey").grid(row=1, column=2, pady=5, padx=10, sticky=W)
+            self.segmento_entry = Entry(frame_dados)
+            self.segmento_entry.grid(row=1, column=3, pady=5, padx=10)
+
+        # Contato
+        Label(frame_dados, text="Telefone:", font=("Arial", 12), bg="grey").grid(row=2, column=0, pady=5, padx=10, sticky=W)
+        self.telefone_entry = Entry(frame_dados)
+        self.telefone_entry.grid(row=2, column=1, pady=5, padx=10)
+
+        Label(frame_dados, text="Celular:", font=("Arial", 12), bg="grey").grid(row=2, column=2, pady=5, padx=10, sticky=W)
+        self.celular_entry = Entry(frame_dados)
+        self.celular_entry.grid(row=2, column=3, pady=5, padx=10)
+
+        Label(frame_dados, text="E-mail:", font=("Arial", 12), bg="grey").grid(row=3, column=0, pady=5, padx=10, sticky=W)
+        self.email_entry = Entry(frame_dados)
+        self.email_entry.grid(row=3, column=1, pady=5, padx=10)
+
         # Endereço
-        Label(frame_dados, text="Logradouro:", font=("Arial", 12), bg="grey").grid(row=2, column=0, pady=5, padx=10, sticky=W)
+        Label(frame_dados, text="Logradouro:", font=("Arial", 12), bg="grey").grid(row=4, column=0, pady=5, padx=10, sticky=W)
         self.logradouro_entry = Entry(frame_dados)
-        self.logradouro_entry.grid(row=2, column=1, pady=5, padx=10)
+        self.logradouro_entry.grid(row=4, column=1, pady=5, padx=10)
 
-        Label(frame_dados, text="Número:", font=("Arial", 12), bg="grey").grid(row=2, column=2, pady=5, padx=10, sticky=W)
+        Label(frame_dados, text="Número:", font=("Arial", 12), bg="grey").grid(row=4, column=2, pady=5, padx=10, sticky=W)
         self.numero_entry = Entry(frame_dados)
-        self.numero_entry.grid(row=2, column=3, pady=5, padx=10)
+        self.numero_entry.grid(row=4, column=3, pady=5, padx=10)
 
-        Label(frame_dados, text="Bairro:", font=("Arial", 12), bg="grey").grid(row=3, column=0, pady=5, padx=10, sticky=W)
+        Label(frame_dados, text="Bairro:", font=("Arial", 12), bg="grey").grid(row=5, column=0, pady=5, padx=10, sticky=W)
         self.bairro_entry = Entry(frame_dados)
-        self.bairro_entry.grid(row=3, column=1, pady=5, padx=10)
+        self.bairro_entry.grid(row=5, column=1, pady=5, padx=10)
 
-        Label(frame_dados, text="Cidade:", font=("Arial", 12), bg="grey").grid(row=3, column=2, pady=5, padx=10, sticky=W)
+        Label(frame_dados, text="Cidade:", font=("Arial", 12), bg="grey").grid(row=5, column=2, pady=5, padx=10, sticky=W)
         self.cidade_entry = Entry(frame_dados)
-        self.cidade_entry.grid(row=3, column=3, pady=5, padx=10)
+        self.cidade_entry.grid(row=5, column=3, pady=5, padx=10)
 
-        Label(frame_dados, text="CEP:", font=("Arial", 12), bg="grey").grid(row=4, column=0, pady=5, padx=10, sticky=W)
+        Label(frame_dados, text="CEP:", font=("Arial", 12), bg="grey").grid(row=6, column=0, pady=5, padx=10, sticky=W)
         self.cep_entry = Entry(frame_dados)
-        self.cep_entry.grid(row=4, column=1, pady=5, padx=10)
+        self.cep_entry.grid(row=6, column=1, pady=5, padx=10)
 
-        Label(frame_dados, text="Complemento:", font=("Arial", 12), bg="grey").grid(row=4, column=2, pady=5, padx=10, sticky=W)
+        Label(frame_dados, text="Complemento:", font=("Arial", 12), bg="grey").grid(row=6, column=2, pady=5, padx=10, sticky=W)
         self.complemento_entry = Entry(frame_dados)
-        self.complemento_entry.grid(row=4, column=3, pady=5, padx=10)
+        self.complemento_entry.grid(row=6, column=3, pady=5, padx=10)
 
         Button(self.container, text=f"Salvar {tipo}", width=20, command=func_salvar).pack(pady=20)
         Button(self.container, text="Voltar", width=20, command=self.pagina_principal).pack(pady=10)
 
     def salvar_funcionario(self):
-        self.salvar_dados(self.funcionarios, "CPF", True)
+        self.salvar_dados(self.funcionarios, "CPF", incluir_cargo=True)
 
     def salvar_cliente(self):
-        self.salvar_dados(self.clientes, "Documento", False)
+        self.salvar_dados(self.clientes, "Documento")
 
-    def salvar_dados(self, armazenamento, campo_chave, incluir_cargo):
+    def salvar_fornecedor(self):
+        self.salvar_dados(self.fornecedores, "CNPJ", incluir_segmento=True)
+
+    def salvar_dados(self, armazenamento, campo_chave, incluir_cargo=False, incluir_segmento=False):
         campos = {
             "Nome": self.nome_entry.get(),
             "Sobrenome": self.sobrenome_entry.get(),
             campo_chave: self.chave_entry.get(),
+            "Telefone": self.telefone_entry.get(),
+            "Celular": self.celular_entry.get(),
+            "E-mail": self.email_entry.get(),
             "Logradouro": self.logradouro_entry.get(),
             "Número": self.numero_entry.get(),
             "Bairro": self.bairro_entry.get(),
             "Cidade": self.cidade_entry.get(),
             "CEP": self.cep_entry.get(),
-            "Complemento": self.complemento_entry.get()
+            "Complemento": self.complemento_entry.get(),
         }
 
         if incluir_cargo:
             campos["Cargo"] = self.cargo_entry.get()
+        if incluir_segmento:
+            campos["Segmento"] = self.segmento_entry.get()
 
         for campo, valor in campos.items():
             if not valor.strip():
@@ -140,6 +174,9 @@ class Home:
 
     def gerenciar_cliente(self):
         self.gerar_pagina_pesquisar("Cliente", "Documento", self.clientes)
+
+    def gerenciar_fornecedor(self):
+        self.gerar_pagina_pesquisar("Fornecedor", "CNPJ", self.fornecedores)
 
     def gerar_pagina_pesquisar(self, tipo, campo_chave, armazenamento):
         for widget in self.container.winfo_children():
@@ -171,24 +208,30 @@ class Home:
         frame_dados = Frame(self.container, bg="grey")
         frame_dados.pack(pady=10)
 
-        self.campos_edicao = {}
-        for i, (campo, valor) in enumerate(dados.items()):
-            Label(frame_dados, text=f"{campo}:", font=("Arial", 12), bg="grey").grid(row=i, column=0, pady=5, padx=10, sticky=W)
+        for idx, (campo, valor) in enumerate(dados.items()):
+            Label(frame_dados, text=f"{campo}:", font=("Arial", 12), bg="grey").grid(row=idx, column=0, pady=5, padx=10, sticky=W)
             entry = Entry(frame_dados)
             entry.insert(0, valor)
-            entry.grid(row=i, column=1, pady=5, padx=10)
-            self.campos_edicao[campo] = entry
+            entry.grid(row=idx, column=1, pady=5, padx=10)
+            dados[campo] = entry
 
-        Button(self.container, text="Salvar Alterações", width=20, command=lambda: self.salvar_alteracoes(armazenamento, chave)).pack(pady=20)
+        Button(self.container, text="Salvar Alterações", width=20, command=lambda: self.salvar_alteracoes(armazenamento, chave, dados)).pack(pady=20)
         Button(self.container, text="Voltar", width=20, command=self.pagina_principal).pack(pady=10)
 
-    def salvar_alteracoes(self, armazenamento, chave):
-        for campo, entry in self.campos_edicao.items():
-            armazenamento[chave][campo] = entry.get()
-        messagebox.showinfo("Sucesso", "Dados atualizados com sucesso!")
+    def salvar_alteracoes(self, armazenamento, chave, dados):
+        for campo, entry in dados.items():
+            valor = entry.get()
+            if not valor.strip():
+                messagebox.showerror("Erro", f"Campo '{campo}' não pode estar vazio!")
+                return
+            dados[campo] = valor
+
+        armazenamento[chave] = {campo: entry.get() for campo, entry in dados.items()}
+        messagebox.showinfo("Sucesso", "Alterações salvas com sucesso!")
         self.pagina_principal()
 
-# Inicializando a aplicação
-root = Tk()
-app = Home(root)
-root.mainloop()
+
+if __name__ == "__main__":
+    root = Tk()
+    app = Home(root)
+    root.mainloop()
