@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import re
 
 
 class Funcionario:
@@ -11,6 +12,32 @@ class Funcionario:
             ("Maria", "Oliveira", "98765432100", "Gerente", "Rua B", "Jardim", "456", "Rio de Janeiro", "98765-432", "", "4000-0000", "98888-8888", "maria@email.com"),
             ("Carlos", "Pereira", "11122334455", "Desenvolvedor", "Rua C", "Vila", "789", "Belo Horizonte", "11223-445", "", "5000-0000", "97777-7777", "carlos@email.com")
         ]
+    
+    def validar_cpf(self, cpf):
+        # Remove qualquer caractere não numérico
+        cpf = re.sub(r'\D', '', cpf)
+
+        # Verifica se o CPF tem 11 dígitos
+        if len(cpf) != 11 or not cpf.isdigit():
+            return False
+
+        # Implementar a validação do CPF (não é simples, pois é necessário verificar os dois últimos dígitos)
+        # Aqui, é feita uma validação simplificada de CPF
+        return True
+    
+    def validar_telefone(self, telefone):
+        # Remover espaços em branco antes de validar
+        telefone = telefone.replace(" ", "")
+        
+        # Expressão regular para validar números de telefone com DDD (2 dígitos) e número (8 ou 9 dígitos)
+        padrao_telefone = re.compile(r'^\d{2}\d{8,9}$')
+        
+        return bool(padrao_telefone.match(telefone))
+    
+    def validar_email(self, email):
+        # Expressão regular para validar e-mails
+        padrao_email = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+        return bool(padrao_email.match(email))
     
     def pagina_funcionario(self, container, voltar_func):
         # Limpa o container e exibe a tabela de funcionários
@@ -192,6 +219,19 @@ class Funcionario:
         # Verifica se todos os campos obrigatórios foram preenchidos
         if not nome or not sobrenome or not cpf or not cargo or not logradouro or not bairro or not numero or not cidade or not cep or not celular or not email:
             messagebox.showerror("Erro", "Por favor, preencha todos os campos obrigatórios!")
+            return
+        
+          
+        if not self.validar_cpf(cpf):
+            messagebox.showerror("Erro", "CPF inválido!")
+            return
+
+        if not self.validar_telefone(fixo) or not self.validar_telefone(celular):
+            messagebox.showerror("Erro", "Número de telefone inválido! Verifique o formato.")
+            return
+
+        if not self.validar_email(email):
+            messagebox.showerror("Erro", "E-mail inválido!")
             return
 
         # Verifica se o CPF já foi registrado
