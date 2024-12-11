@@ -112,7 +112,6 @@ class Funcionario:
             for funcionario in self.funcionarios:  # Adiciona todos os funcionários novamente
                 self.tabela.insert("", "end", values=funcionario)
 
-
     def exibir_botoes(self, container):
         # Frame para os botões de Adicionar, Editar e Excluir
         botoes_frame = Frame(container, bg="grey")
@@ -125,84 +124,66 @@ class Funcionario:
         # Botão Editar
         edit_button = Button(botoes_frame, text="Editar", command=self.editar_funcionario, font=("Arial", 12), width=10)
         edit_button.pack(side=LEFT, padx=10)
-    
+
     def adicionar_funcionario(self):
         # Função para abrir a janela de adicionar funcionário
         self.janela_adicionar = Toplevel()
         self.janela_adicionar.title("Adicionar Novo Funcionário")
 
+        # Criando um Frame para organizar os campos
+        form_frame = Frame(self.janela_adicionar)
+        form_frame.pack(pady=10)
+
         # Criando os campos de entrada para o novo funcionário
-        Label(self.janela_adicionar, text="Nome:").pack(pady=5)
-        self.nome_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.nome_entry.pack(pady=5)
+        campos = [
+            ("Nome:", "nome_entry"),
+            ("Sobrenome:", "sobrenome_entry"),
+            ("CPF:", "cpf_entry_adicionar"),
+            ("Cargo:", "cargo_entry"),
+            ("Logradouro:", "logradouro_entry"),
+            ("Bairro:", "bairro_entry"),
+            ("Número:", "numero_entry"),
+            ("Cidade:", "cidade_entry"),
+            ("CEP:", "cep_entry"),
+            ("Complemento:", "complemento_entry"),
+            ("Fixo:", "fixo_entry"),
+            ("Celular:", "celular_entry"),
+            ("Email:", "email_entry")
+        ]
+        
+        # Adicionando os campos de forma mais organizada
+        self.entries = {}
+        for i, (label_text, entry_name) in enumerate(campos):
+            Label(form_frame, text=label_text).grid(row=i, column=0, sticky=W, pady=5, padx=5)
+            entry = Entry(form_frame, font=("Arial", 12))
+            entry.grid(row=i, column=1, pady=5, padx=5)
+            self.entries[entry_name] = entry
 
-        Label(self.janela_adicionar, text="Sobrenome:").pack(pady=5)
-        self.sobrenome_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.sobrenome_entry.pack(pady=5)
+        # Botões de salvar e cancelar
+        button_frame = Frame(self.janela_adicionar)
+        button_frame.pack(pady=10)
 
-        Label(self.janela_adicionar, text="CPF:").pack(pady=5)
-        self.cpf_entry_adicionar = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.cpf_entry_adicionar.pack(pady=5)
+        # Botão Salvar
+        Button(button_frame, text="Salvar", command=self.salvar_funcionario, font=("Arial", 12), width=10).pack(side=LEFT, padx=10)
+        
+        # Botão Cancelar
+        Button(button_frame, text="Cancelar", command=self.janela_adicionar.destroy, font=("Arial", 12), width=10).pack(side=LEFT, padx=10)
 
-        Label(self.janela_adicionar, text="Cargo:").pack(pady=5)
-        self.cargo_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.cargo_entry.pack(pady=5)
-
-        # Novos campos de endereço e contato
-        Label(self.janela_adicionar, text="Logradouro:").pack(pady=5)
-        self.logradouro_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.logradouro_entry.pack(pady=5)
-
-        Label(self.janela_adicionar, text="Bairro:").pack(pady=5)
-        self.bairro_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.bairro_entry.pack(pady=5)
-
-        Label(self.janela_adicionar, text="Número:").pack(pady=5)
-        self.numero_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.numero_entry.pack(pady=5)
-
-        Label(self.janela_adicionar, text="Cidade:").pack(pady=5)
-        self.cidade_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.cidade_entry.pack(pady=5)
-
-        Label(self.janela_adicionar, text="CEP:").pack(pady=5)
-        self.cep_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.cep_entry.pack(pady=5)
-
-        Label(self.janela_adicionar, text="Complemento:").pack(pady=5)
-        self.complemento_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.complemento_entry.pack(pady=5)
-
-        Label(self.janela_adicionar, text="Fixo:").pack(pady=5)
-        self.fixo_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.fixo_entry.pack(pady=5)
-
-        Label(self.janela_adicionar, text="Celular:").pack(pady=5)
-        self.celular_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.celular_entry.pack(pady=5)
-
-        Label(self.janela_adicionar, text="Email:").pack(pady=5)
-        self.email_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.email_entry.pack(pady=5)
-
-        # Botão para salvar o novo funcionário
-        Button(self.janela_adicionar, text="Salvar", command=self.salvar_funcionario, font=("Arial", 12)).pack(pady=10)
-    
     def salvar_funcionario(self):
         # Salvando as informações do novo funcionário
-        nome = self.nome_entry.get()
-        sobrenome = self.sobrenome_entry.get()
-        cpf = self.cpf_entry_adicionar.get()
-        cargo = self.cargo_entry.get()
-        logradouro = self.logradouro_entry.get()
-        bairro = self.bairro_entry.get()
-        numero = self.numero_entry.get()
-        cidade = self.cidade_entry.get()
-        cep = self.cep_entry.get()
-        complemento = self.complemento_entry.get()
-        fixo = self.fixo_entry.get()
-        celular = self.celular_entry.get()
-        email = self.email_entry.get()
+        nome = self.entries["nome_entry"].get()
+        sobrenome = self.entries["sobrenome_entry"].get()
+        cpf = self.entries["cpf_entry_adicionar"].get()
+        cargo = self.entries["cargo_entry"].get()
+        logradouro = self.entries["logradouro_entry"].get()
+        bairro = self.entries["bairro_entry"].get()
+        numero = self.entries["numero_entry"].get()
+        cidade = self.entries["cidade_entry"].get()
+        cep = self.entries["cep_entry"].get()
+        complemento = self.entries["complemento_entry"].get()
+        fixo = self.entries["fixo_entry"].get()
+        celular = self.entries["celular_entry"].get()
+        email = self.entries["email_entry"].get()
 
         if nome and sobrenome and cpf and cargo and logradouro and bairro and numero and cidade and cep and fixo and celular and email:
             # Adiciona o novo funcionário à lista
@@ -218,7 +199,11 @@ class Funcionario:
             messagebox.showinfo("Sucesso", "Funcionário adicionado com sucesso!")
         else:
             messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
-    
+
+    def cancelar_adicao(self):
+        # Fecha a janela de adicionar sem salvar
+        self.janela_adicionar.destroy()
+
     def editar_funcionario(self):
         # Lógica para editar um funcionário existente
         messagebox.showinfo("Editar Funcionário", "Editar o funcionário selecionado.")
@@ -237,7 +222,7 @@ class Funcionario:
         if funcionario_a_remover:
             # Exibe uma caixa de confirmação antes de excluir
             confirmacao = messagebox.askyesno("Confirmar Exclusão", f"Tem certeza que deseja excluir o funcionário {funcionario_a_remover[0]} {funcionario_a_remover[1]}?")
-            
+
             if confirmacao:  # Se o usuário confirmar a exclusão
                 # Remove o funcionário da lista
                 self.funcionarios.remove(funcionario_a_remover)
