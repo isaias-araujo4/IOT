@@ -3,6 +3,7 @@ from tkinter import messagebox
 from funcionarios import Funcionario
 from clientes import Cliente
 from fornecedores import Fornecedor
+from caminhões import Caminhao
 
 class Home:
     def __init__(self, root):
@@ -15,6 +16,7 @@ class Home:
         self.funcionarios = Funcionario()
         self.clientes = Cliente()
         self.fornecedores = Fornecedor()
+        self.caminhoes = Caminhao()
 
         self.container = Frame(self.root, bg="grey")
         self.container.pack(fill=BOTH, expand=True)
@@ -33,6 +35,7 @@ class Home:
         Button(self.container, text="Funcionário", width=20, command=self.pagina_funcionario).pack(pady=10)
         Button(self.container, text="Cliente", width=20, command=self.pagina_cliente).pack(pady=10)
         Button(self.container, text="Fornecedor", width=20, command=self.pagina_fornecedor).pack(pady=10)
+        Button(self.container, text="Caminhão", width=20, command=self.pagina_caminhao).pack(pady=10)
 
     def fechar_programa(self):
         self.root.quit()
@@ -45,6 +48,9 @@ class Home:
 
     def pagina_fornecedor(self):
         self.fornecedores.pagina_fornecedor(self.container, self.pagina_principal)
+        
+    def pagina_caminhao(self):
+        self.caminhoes.pagina_caminhao(self.container, self.pagina_principal)
 
 if __name__ == "__main__":
     root = Tk()
