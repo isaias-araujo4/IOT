@@ -127,33 +127,36 @@ class Funcionario:
         messagebox.showinfo("Editar Funcionário", "Editar o funcionário selecionado.")
     
     def excluir_funcionario(self):
-        # Obtendo o funcionário selecionado
-        selecionado = self.tabela.selection()  # Obtém o ID da linha selecionada
-        
-        if not selecionado:
-            messagebox.showerror("Erro", "Selecione um funcionário para excluir.")
-            return
+        # Obtendo o CPF digitado
+        cpf_procurado = self.cpf_entry.get()
 
-        # Obtendo os dados do funcionário selecionado
-        item = self.tabela.item(selecionado)
-        cpf_selecionado = item['values'][2]  # CPF do funcionário selecionado
-
-        # Procurar o funcionário pelo CPF na lista de funcionários
+        # Procurando o funcionário pelo CPF na lista
         funcionario_a_remover = None
         for funcionario in self.funcionarios:
-            if funcionario[2] == cpf_selecionado:
+            if funcionario[2] == cpf_procurado:
                 funcionario_a_remover = funcionario
                 break
 
         if funcionario_a_remover:
-            # Remover o funcionário da lista de funcionários
-            self.funcionarios.remove(funcionario_a_remover)
-
-            # Atualiza a tabela após a exclusão
-            self.tabela.delete(selecionado)  # Remove a linha selecionada da tabela
+            # Exibe uma caixa de confirmação antes de excluir
+            confirmacao = messagebox.askyesno("Confirmar Exclusão", f"Tem certeza que deseja excluir o funcionário {funcionario_a_remover[0]} {funcionario_a_remover[1]}?")
             
-            # Exibe mensagem de sucesso
-            messagebox.showinfo("Sucesso", f"Funcionário com CPF {cpf_selecionado} foi excluído.")
+            if confirmacao:  # Se o usuário confirmar a exclusão
+                # Remove o funcionário da lista
+                self.funcionarios.remove(funcionario_a_remover)
+
+                # Limpar a tabela e exibir todos os funcionários novamente
+                for row in self.tabela.get_children():
+                    self.tabela.delete(row)  # Remove todas as linhas existentes
+
+                # Adiciona os funcionários restantes na tabela
+                for funcionario in self.funcionarios:
+                    self.tabela.insert("", "end", values=funcionario)
+
+                # Exibe mensagem de sucesso
+                messagebox.showinfo("Sucesso", f"Funcionário {funcionario_a_remover[0]} {funcionario_a_remover[1]} foi excluído.")
+            else:
+                messagebox.showinfo("Cancelado", "Exclusão cancelada.")
         else:
-            # Caso o funcionário não tenha sido encontrado (algo estranho)
             messagebox.showerror("Erro", "Funcionário não encontrado.")
+
