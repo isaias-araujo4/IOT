@@ -200,44 +200,103 @@ class Funcionario:
         else:
             messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
 
-    def cancelar_adicao(self):
-        # Fecha a janela de adicionar sem salvar
-        self.janela_adicionar.destroy()
-
     def editar_funcionario(self):
         # Lógica para editar um funcionário existente
-        messagebox.showinfo("Editar Funcionário", "Editar o funcionário selecionado.")
-    
-    def excluir_funcionario(self):
-        # Obtendo o CPF digitado
         cpf_procurado = self.cpf_entry.get()
-
-        # Procurando o funcionário pelo CPF na lista
-        funcionario_a_remover = None
+        funcionario_a_editar = None
         for funcionario in self.funcionarios:
             if funcionario[2] == cpf_procurado:
-                funcionario_a_remover = funcionario
+                funcionario_a_editar = funcionario
                 break
+        
+        if funcionario_a_editar:
+            # Abrir a janela de edição
+            self.janela_editar = Toplevel()
+            self.janela_editar.title("Editar Funcionário")
 
-        if funcionario_a_remover:
-            # Exibe uma caixa de confirmação antes de excluir
-            confirmacao = messagebox.askyesno("Confirmar Exclusão", f"Tem certeza que deseja excluir o funcionário {funcionario_a_remover[0]} {funcionario_a_remover[1]}?")
+            # Criando um Frame para organizar os campos
+            form_frame = Frame(self.janela_editar)
+            form_frame.pack(pady=10)
 
-            if confirmacao:  # Se o usuário confirmar a exclusão
-                # Remove o funcionário da lista
-                self.funcionarios.remove(funcionario_a_remover)
+            # Criando os campos de entrada com os valores existentes do funcionário
+            campos = [
+                ("Nome:", "nome_entry", funcionario_a_editar[0]),
+                ("Sobrenome:", "sobrenome_entry", funcionario_a_editar[1]),
+                ("CPF:", "cpf_entry_editar", funcionario_a_editar[2]),
+                ("Cargo:", "cargo_entry", funcionario_a_editar[3]),
+                ("Logradouro:", "logradouro_entry", funcionario_a_editar[4]),
+                ("Bairro:", "bairro_entry", funcionario_a_editar[5]),
+                ("Número:", "numero_entry", funcionario_a_editar[6]),
+                ("Cidade:", "cidade_entry", funcionario_a_editar[7]),
+                ("CEP:", "cep_entry", funcionario_a_editar[8]),
+                ("Complemento:", "complemento_entry", funcionario_a_editar[9]),
+                ("Fixo:", "fixo_entry", funcionario_a_editar[10]),
+                ("Celular:", "celular_entry", funcionario_a_editar[11]),
+                ("Email:", "email_entry", funcionario_a_editar[12])
+            ]
+            
+            # Adicionando os campos com valores existentes
+            self.entries = {}
+            for i, (label_text, entry_name, entry_value) in enumerate(campos):
+                Label(form_frame, text=label_text).grid(row=i, column=0, sticky=W, pady=5, padx=5)
+                entry = Entry(form_frame, font=("Arial", 12))
+                entry.insert(0, entry_value)
+                entry.grid(row=i, column=1, pady=5, padx=5)
+                self.entries[entry_name] = entry
 
-                # Limpar a tabela e exibir todos os funcionários novamente
-                for row in self.tabela.get_children():
-                    self.tabela.delete(row)  # Remove todas as linhas existentes
+            # Botões de salvar e cancelar
+            button_frame = Frame(self.janela_editar)
+            button_frame.pack(pady=10)
 
-                # Adiciona os funcionários restantes na tabela
-                for funcionario in self.funcionarios:
-                    self.tabela.insert("", "end", values=funcionario)
+            # Botão Salvar
+            Button(button_frame, text="Salvar", command=lambda: self.salvar_edicao(funcionario_a_editar), font=("Arial", 12), width=10).pack(side=LEFT, padx=10)
+            
+            # Botão Cancelar
+            Button(button_frame, text="Cancelar", command=self.janela_editar.destroy, font=("Arial", 12), width=10).pack(side=LEFT, padx=10)
 
-                # Exibe mensagem de sucesso
-                messagebox.showinfo("Sucesso", f"Funcionário {funcionario_a_remover[0]} {funcionario_a_remover[1]} foi excluído.")
-            else:
-                messagebox.showinfo("Cancelado", "Exclusão cancelada.")
         else:
-            messagebox.showerror("Erro", "Funcionário não encontrado.")
+            messagebox.showerror("Erro", "Funcionário não encontrado!")
+
+    def salvar_edicao(self, funcionario_antigo):
+        # Atualiza os dados do funcionário com as novas informações
+        nome = self.entries["nome_entry"].get()
+        sobrenome = self.entries["sobrenome_entry"].get()
+        cargo = self.entries["cargo_entry"].get()
+        logradouro = self.entries["logradouro_entry"].get()
+        bairro = self.entries["bairro_entry"].get()
+        numero = self.entries["numero_entry"].get()
+        cidade = self.entries["cidade_entry"].get()
+        cep = self.entries["cep_entry"].get()
+        complemento = self.entries["complemento_entry"].get()
+        fixo = self.entries["fixo_entry"].get()
+        celular = self.entries["celular_entry"].get()
+        email = self.entries["email_entry"].get()
+
+        if nome and sobrenome and cargo and logradouro and bairro and numero and cidade and cep and fixo and celular and email:
+            # Atualiza os dados do funcionário
+            idx = self.funcionarios.index(funcionario_antigo)
+            self.funcionarios[idx] = (nome, sobrenome, funcionario_antigo[2], cargo, logradouro, bairro, numero, cidade, cep, complemento, fixo, celular, email)
+
+            # Atualiza a tabela
+            self.exibir_tabela(self.janela_editar)
+
+            # Fecha a janela de edição
+            self.janela_editar.destroy()
+
+            # Exibe mensagem de sucesso
+            messagebox.showinfo("Sucesso", "Funcionário editado com sucesso!")
+        else:
+            messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
+
+    def excluir_funcionario(self):
+        # Função para excluir um funcionário baseado no CPF
+        cpf_procurado = self.cpf_entry.get()
+
+        for funcionario in self.funcionarios:
+            if funcionario[2] == cpf_procurado:
+                self.funcionarios.remove(funcionario)
+                self.exibir_tabela(self.janela_adicionar)
+                messagebox.showinfo("Sucesso", "Funcionário excluído com sucesso!")
+                return
+
+        messagebox.showerror("Erro", "Funcionário não encontrado.")
