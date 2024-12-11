@@ -131,63 +131,77 @@ class Funcionario:
         self.janela_adicionar = Toplevel()
         self.janela_adicionar.title("Adicionar Novo Funcionário")
 
+        # Definindo o layout da janela como grid
+        self.janela_adicionar.geometry("400x600")  # Ajuste o tamanho se necessário
+        
         # Criando os campos de entrada para o novo funcionário
-        Label(self.janela_adicionar, text="Nome:").pack(pady=5)
+        Label(self.janela_adicionar, text="Nome:").grid(row=0, column=0, padx=10, pady=5, sticky="w")
         self.nome_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.nome_entry.pack(pady=5)
+        self.nome_entry.grid(row=0, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Sobrenome:").pack(pady=5)
+        Label(self.janela_adicionar, text="Sobrenome:").grid(row=1, column=0, padx=10, pady=5, sticky="w")
         self.sobrenome_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.sobrenome_entry.pack(pady=5)
+        self.sobrenome_entry.grid(row=1, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="CPF:").pack(pady=5)
+        Label(self.janela_adicionar, text="CPF:").grid(row=2, column=0, padx=10, pady=5, sticky="w")
         self.cpf_entry_adicionar = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.cpf_entry_adicionar.pack(pady=5)
+        self.cpf_entry_adicionar.grid(row=2, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Cargo:").pack(pady=5)
+        Label(self.janela_adicionar, text="Cargo:").grid(row=3, column=0, padx=10, pady=5, sticky="w")
         self.cargo_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.cargo_entry.pack(pady=5)
+        self.cargo_entry.grid(row=3, column=1, padx=10, pady=5)
 
         # Novos campos de endereço e contato
-        Label(self.janela_adicionar, text="Logradouro:").pack(pady=5)
+        Label(self.janela_adicionar, text="Logradouro:").grid(row=4, column=0, padx=10, pady=5, sticky="w")
         self.logradouro_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.logradouro_entry.pack(pady=5)
+        self.logradouro_entry.grid(row=4, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Bairro:").pack(pady=5)
+        Label(self.janela_adicionar, text="Bairro:").grid(row=5, column=0, padx=10, pady=5, sticky="w")
         self.bairro_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.bairro_entry.pack(pady=5)
+        self.bairro_entry.grid(row=5, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Número:").pack(pady=5)
+        Label(self.janela_adicionar, text="Número:").grid(row=6, column=0, padx=10, pady=5, sticky="w")
         self.numero_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.numero_entry.pack(pady=5)
+        self.numero_entry.grid(row=6, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Cidade:").pack(pady=5)
+        Label(self.janela_adicionar, text="Cidade:").grid(row=7, column=0, padx=10, pady=5, sticky="w")
         self.cidade_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.cidade_entry.pack(pady=5)
+        self.cidade_entry.grid(row=7, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="CEP:").pack(pady=5)
+        Label(self.janela_adicionar, text="CEP:").grid(row=8, column=0, padx=10, pady=5, sticky="w")
         self.cep_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.cep_entry.pack(pady=5)
+        self.cep_entry.grid(row=8, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Complemento:").pack(pady=5)
+        Label(self.janela_adicionar, text="Complemento:").grid(row=9, column=0, padx=10, pady=5, sticky="w")
         self.complemento_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.complemento_entry.pack(pady=5)
+        self.complemento_entry.grid(row=9, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Fixo:").pack(pady=5)
+        Label(self.janela_adicionar, text="Fixo:").grid(row=10, column=0, padx=10, pady=5, sticky="w")
         self.fixo_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.fixo_entry.pack(pady=5)
+        self.fixo_entry.grid(row=10, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Celular:").pack(pady=5)
+        Label(self.janela_adicionar, text="Celular:").grid(row=11, column=0, padx=10, pady=5, sticky="w")
         self.celular_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.celular_entry.pack(pady=5)
+        self.celular_entry.grid(row=11, column=1, padx=10, pady=5)
 
-        Label(self.janela_adicionar, text="Email:").pack(pady=5)
+        Label(self.janela_adicionar, text="Email:").grid(row=12, column=0, padx=10, pady=5, sticky="w")
         self.email_entry = Entry(self.janela_adicionar, font=("Arial", 12))
-        self.email_entry.pack(pady=5)
+        self.email_entry.grid(row=12, column=1, padx=10, pady=5)
 
-        # Botão para salvar o novo funcionário
-        Button(self.janela_adicionar, text="Salvar", command=self.salvar_funcionario, font=("Arial", 12)).pack(pady=10)
-    
+        # Botões de Salvar e Cancelar
+        frame_botoes = Frame(self.janela_adicionar)
+        frame_botoes.grid(row=13, columnspan=2, pady=20)
+
+        # Botão Salvar
+        Button(frame_botoes, text="Salvar", command=self.salvar_funcionario, font=("Arial", 12)).pack(side=LEFT, padx=10)
+        
+        # Botão Cancelar
+        Button(frame_botoes, text="Cancelar", command=self.janela_adicionar.destroy, font=("Arial", 12)).pack(side=LEFT, padx=10)
+
+
+
+
+
     def salvar_funcionario(self):
         # Salvando as informações do novo funcionário
         nome = self.nome_entry.get()
