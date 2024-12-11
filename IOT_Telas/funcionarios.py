@@ -344,11 +344,23 @@ class Funcionario:
         # Função para excluir um funcionário baseado no CPF
         cpf_procurado = self.cpf_entry.get()
 
-        for funcionario in self.funcionarios:
-            if funcionario[2] == cpf_procurado:
-                self.funcionarios.remove(funcionario)
-                self.exibir_tabela(self.janela_adicionar)
-                messagebox.showinfo("Sucesso", "Funcionário excluído com sucesso!")
-                return
+        # Verificando se o CPF foi preenchido
+        if not cpf_procurado:
+            messagebox.showerror("Erro", "Digite um CPF para excluir!")
+            return
 
-        messagebox.showerror("Erro", "Funcionário não encontrado.")
+        # Exibe a caixa de confirmação
+        confirmacao = messagebox.askyesno("Confirmação", "Você tem certeza de que deseja excluir este funcionário?")
+
+        if confirmacao:  # Se o usuário clicar em 'Sim'
+            for funcionario in self.funcionarios:
+                if funcionario[2] == cpf_procurado:
+                    self.funcionarios.remove(funcionario)
+                    self.exibir_tabela(self.janela_adicionar)
+                    messagebox.showinfo("Sucesso", "Funcionário excluído com sucesso!")
+                    return
+
+            # Caso o CPF não seja encontrado
+            messagebox.showerror("Erro", "Funcionário não encontrado!")
+        else:
+            messagebox.showinfo("Cancelado", "A exclusão foi cancelada.")
