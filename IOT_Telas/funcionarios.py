@@ -57,9 +57,12 @@ class Funcionario:
         for widget in container.winfo_children():
             if isinstance(widget, ttk.Treeview):
                 widget.destroy()  # Remover a tabela existente
-        
-        # Criando a nova tabela (Treeview)
-        self.tabela = ttk.Treeview(container, columns=("Nome", "Sobrenome", "CPF", "Cargo", "Logradouro", "Bairro", "Número", "Cidade", "CEP", "Complemento", "Fixo", "Celular", "Email"), show="headings", height=4)  # 4 linhas visíveis
+
+        # Definindo o número de linhas como o número de funcionários
+        num_linhas = len(self.funcionarios)
+
+        # Criando a nova tabela (Treeview) com altura ajustada
+        self.tabela = ttk.Treeview(container, columns=("Nome", "Sobrenome", "CPF", "Cargo", "Logradouro", "Bairro", "Número", "Cidade", "CEP", "Complemento", "Fixo", "Celular", "Email"), show="headings", height=num_linhas)  # Linhas dinâmicas
         self.tabela.pack(pady=10, padx=20)
 
         # Definindo as colunas da tabela
@@ -81,10 +84,11 @@ class Funcionario:
         col_widths = [100, 100, 120, 120, 150, 100, 60, 100, 100, 120, 100, 100, 150]
         for col, width in zip(self.tabela["columns"], col_widths):
             self.tabela.column(col, width=width)  # Ajustando a largura das colunas
-        
-        # Inicialmente, adiciona todos os funcionários à tabela
+
+        # Adicionando todos os funcionários à tabela
         for funcionario in self.funcionarios:
             self.tabela.insert("", "end", values=funcionario)
+
 
     def pesquisar_funcionario(self):
         # Obtendo o CPF digitado
@@ -185,20 +189,31 @@ class Funcionario:
         celular = self.entries["celular_entry"].get()
         email = self.entries["email_entry"].get()
 
-        if nome and sobrenome and cpf and cargo and logradouro and bairro and numero and cidade and cep and fixo and celular and email:
-            # Adiciona o novo funcionário à lista
-            self.funcionarios.append((nome, sobrenome, cpf, cargo, logradouro, bairro, numero, cidade, cep, complemento, fixo, celular, email))
+        # Verifica se todos os campos obrigatórios foram preenchidos
+        if not nome or not sobrenome or not cpf or not cargo or not logradouro or not bairro or not numero or not cidade or not cep or not celular or not email:
+            messagebox.showerror("Erro", "Por favor, preencha todos os campos obrigatórios!")
+            return
 
-            # Atualiza a tabela
-            self.exibir_tabela(self.janela_adicionar)
+        # Verifica se o CPF já foi registrado
+        for funcionario in self.funcionarios:
+            if funcionario[2] == cpf:  # O CPF é o terceiro item da tupla
+                messagebox.showerror("Erro", "CPF já registrado!")
+                return
 
-            # Fecha a janela de adicionar
-            self.janela_adicionar.destroy()
+        # Se tudo estiver correto, adiciona o novo funcionário à lista
+        self.funcionarios.append((nome, sobrenome, cpf, cargo, logradouro, bairro, numero, cidade, cep, complemento, fixo, celular, email))
 
-            # Exibe uma mensagem de sucesso
-            messagebox.showinfo("Sucesso", "Funcionário adicionado com sucesso!")
-        else:
-            messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
+        # Atualiza a tabela diretamente
+        self.exibir_tabela(self.janela_adicionar)
+
+        # Fecha a janela de adicionar
+        self.janela_adicionar.destroy()
+
+        # Exibe uma mensagem de sucesso
+        messagebox.showinfo("Sucesso", "Funcionário adicionado com sucesso!")
+
+
+
 
     def editar_funcionario(self):
         # Lógica para editar um funcionário existente
@@ -277,7 +292,7 @@ class Funcionario:
             idx = self.funcionarios.index(funcionario_antigo)
             self.funcionarios[idx] = (nome, sobrenome, funcionario_antigo[2], cargo, logradouro, bairro, numero, cidade, cep, complemento, fixo, celular, email)
 
-            # Atualiza a tabela
+            # Atualiza a tabela diretamente
             self.exibir_tabela(self.janela_editar)
 
             # Fecha a janela de edição
@@ -287,6 +302,8 @@ class Funcionario:
             messagebox.showinfo("Sucesso", "Funcionário editado com sucesso!")
         else:
             messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
+
+
 
     def excluir_funcionario(self):
         # Função para excluir um funcionário baseado no CPF
