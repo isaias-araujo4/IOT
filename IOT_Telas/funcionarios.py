@@ -6,9 +6,9 @@ class Funcionario:
     def __init__(self):
         # Lista de exemplo de funcionários (pode ser vazia)
         self.funcionarios = [
-            ("João", "Silva", "12345678901", "Analista"),
-            ("Maria", "Oliveira", "98765432100", "Gerente"),
-            ("Carlos", "Pereira", "11122334455", "Desenvolvedor")
+            ("João", "Silva", "12345678901", "Analista", "Rua A", "Centro", "123", "São Paulo", "12345-678", "", "3000-0000", "99999-9999", "joao@email.com"),
+            ("Maria", "Oliveira", "98765432100", "Gerente", "Rua B", "Jardim", "456", "Rio de Janeiro", "98765-432", "", "4000-0000", "98888-8888", "maria@email.com"),
+            ("Carlos", "Pereira", "11122334455", "Desenvolvedor", "Rua C", "Vila", "789", "Belo Horizonte", "11223-445", "", "5000-0000", "97777-7777", "carlos@email.com")
         ]
     
     def pagina_funcionario(self, container, voltar_func):
@@ -59,7 +59,7 @@ class Funcionario:
                 widget.destroy()  # Remover a tabela existente
         
         # Criando a nova tabela (Treeview)
-        self.tabela = ttk.Treeview(container, columns=("Nome", "Sobrenome", "CPF", "Cargo"), show="headings", height=4)  # 4 linhas visíveis
+        self.tabela = ttk.Treeview(container, columns=("Nome", "Sobrenome", "CPF", "Cargo", "Logradouro", "Bairro", "Número", "Cidade", "CEP", "Complemento", "Fixo", "Celular", "Email"), show="headings", height=4)  # 4 linhas visíveis
         self.tabela.pack(pady=10, padx=20)
 
         # Definindo as colunas da tabela
@@ -67,13 +67,21 @@ class Funcionario:
         self.tabela.heading("Sobrenome", text="Sobrenome")
         self.tabela.heading("CPF", text="CPF")
         self.tabela.heading("Cargo", text="Cargo")
+        self.tabela.heading("Logradouro", text="Logradouro")
+        self.tabela.heading("Bairro", text="Bairro")
+        self.tabela.heading("Número", text="Número")
+        self.tabela.heading("Cidade", text="Cidade")
+        self.tabela.heading("CEP", text="CEP")
+        self.tabela.heading("Complemento", text="Complemento")
+        self.tabela.heading("Fixo", text="Fixo")
+        self.tabela.heading("Celular", text="Celular")
+        self.tabela.heading("Email", text="Email")
 
         # Definindo a largura das colunas
-        self.tabela.column("Nome", width=120)  # Largura menor
-        self.tabela.column("Sobrenome", width=120)  # Largura menor
-        self.tabela.column("CPF", width=120)  # Largura menor
-        self.tabela.column("Cargo", width=120)  # Largura menor
-
+        col_widths = [100, 100, 120, 120, 150, 100, 60, 100, 100, 120, 100, 100, 150]
+        for col, width in zip(self.tabela["columns"], col_widths):
+            self.tabela.column(col, width=width)  # Ajustando a largura das colunas
+        
         # Inicialmente, adiciona todos os funcionários à tabela
         for funcionario in self.funcionarios:
             self.tabela.insert("", "end", values=funcionario)
@@ -119,8 +127,97 @@ class Funcionario:
         edit_button.pack(side=LEFT, padx=10)
     
     def adicionar_funcionario(self):
-        # Lógica para adicionar um novo funcionário
-        messagebox.showinfo("Adicionar Funcionário", "Adicionar um novo funcionário.")
+        # Função para abrir a janela de adicionar funcionário
+        self.janela_adicionar = Toplevel()
+        self.janela_adicionar.title("Adicionar Novo Funcionário")
+
+        # Criando os campos de entrada para o novo funcionário
+        Label(self.janela_adicionar, text="Nome:").pack(pady=5)
+        self.nome_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.nome_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Sobrenome:").pack(pady=5)
+        self.sobrenome_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.sobrenome_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="CPF:").pack(pady=5)
+        self.cpf_entry_adicionar = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.cpf_entry_adicionar.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Cargo:").pack(pady=5)
+        self.cargo_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.cargo_entry.pack(pady=5)
+
+        # Novos campos de endereço e contato
+        Label(self.janela_adicionar, text="Logradouro:").pack(pady=5)
+        self.logradouro_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.logradouro_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Bairro:").pack(pady=5)
+        self.bairro_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.bairro_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Número:").pack(pady=5)
+        self.numero_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.numero_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Cidade:").pack(pady=5)
+        self.cidade_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.cidade_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="CEP:").pack(pady=5)
+        self.cep_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.cep_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Complemento:").pack(pady=5)
+        self.complemento_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.complemento_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Fixo:").pack(pady=5)
+        self.fixo_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.fixo_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Celular:").pack(pady=5)
+        self.celular_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.celular_entry.pack(pady=5)
+
+        Label(self.janela_adicionar, text="Email:").pack(pady=5)
+        self.email_entry = Entry(self.janela_adicionar, font=("Arial", 12))
+        self.email_entry.pack(pady=5)
+
+        # Botão para salvar o novo funcionário
+        Button(self.janela_adicionar, text="Salvar", command=self.salvar_funcionario, font=("Arial", 12)).pack(pady=10)
+    
+    def salvar_funcionario(self):
+        # Salvando as informações do novo funcionário
+        nome = self.nome_entry.get()
+        sobrenome = self.sobrenome_entry.get()
+        cpf = self.cpf_entry_adicionar.get()
+        cargo = self.cargo_entry.get()
+        logradouro = self.logradouro_entry.get()
+        bairro = self.bairro_entry.get()
+        numero = self.numero_entry.get()
+        cidade = self.cidade_entry.get()
+        cep = self.cep_entry.get()
+        complemento = self.complemento_entry.get()
+        fixo = self.fixo_entry.get()
+        celular = self.celular_entry.get()
+        email = self.email_entry.get()
+
+        if nome and sobrenome and cpf and cargo and logradouro and bairro and numero and cidade and cep and fixo and celular and email:
+            # Adiciona o novo funcionário à lista
+            self.funcionarios.append((nome, sobrenome, cpf, cargo, logradouro, bairro, numero, cidade, cep, complemento, fixo, celular, email))
+
+            # Atualiza a tabela
+            self.exibir_tabela(self.janela_adicionar)
+
+            # Fecha a janela de adicionar
+            self.janela_adicionar.destroy()
+
+            # Exibe uma mensagem de sucesso
+            messagebox.showinfo("Sucesso", "Funcionário adicionado com sucesso!")
+        else:
+            messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
     
     def editar_funcionario(self):
         # Lógica para editar um funcionário existente
@@ -159,4 +256,3 @@ class Funcionario:
                 messagebox.showinfo("Cancelado", "Exclusão cancelada.")
         else:
             messagebox.showerror("Erro", "Funcionário não encontrado.")
-
