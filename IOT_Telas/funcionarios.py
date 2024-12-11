@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 
+
 class Funcionario:
     def __init__(self):
         # Lista de exemplo de funcionários (pode ser vazia)
@@ -88,7 +89,6 @@ class Funcionario:
         # Adicionando todos os funcionários à tabela
         for funcionario in self.funcionarios:
             self.tabela.insert("", "end", values=funcionario)
-
 
     def pesquisar_funcionario(self):
         # Obtendo o CPF digitado
@@ -212,9 +212,6 @@ class Funcionario:
         # Exibe uma mensagem de sucesso
         messagebox.showinfo("Sucesso", "Funcionário adicionado com sucesso!")
 
-
-
-
     def editar_funcionario(self):
         # Lógica para editar um funcionário existente
         cpf_procurado = self.cpf_entry.get()
@@ -302,8 +299,6 @@ class Funcionario:
             messagebox.showinfo("Sucesso", "Funcionário editado com sucesso!")
         else:
             messagebox.showerror("Erro", "Por favor, preencha todos os campos!")
-
-
 
     def excluir_funcionario(self):
         # Função para excluir um funcionário baseado no CPF
