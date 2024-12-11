@@ -8,9 +8,7 @@ class Cliente:
     def __init__(self):
         # Lista de exemplo de clientes (pode ser vazia)
         self.clientes = [
-            ("Pereira", "Silva", "1", "Rua A", "Centro", "123", "São Paulo", "12345-678", "", "3000-0000", "99999-9999", "joao@email.com"),
-            ("Lucas", "Oliveira", "2", "Rua B", "Jardim", "456", "Rio de Janeiro", "98765-432", "", "4000-0000", "98888-8888", "maria@email.com"),
-            ("Jorge", "Pereira", "3", "Rua C", "Vila", "789", "Belo Horizonte", "11223-445", "", "5000-0000", "97777-7777", "carlos@email.com")
+            
         ]
     
     def validar_telefone(self, telefone):

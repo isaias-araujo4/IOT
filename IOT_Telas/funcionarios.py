@@ -8,9 +8,7 @@ class Funcionario:
     def __init__(self):
         # Lista de exemplo de funcionários (pode ser vazia)
         self.funcionarios = [
-            ("João", "Silva", "12345678901", "Analista", "Rua A", "Centro", "123", "São Paulo", "12345-678", "", "3000-0000", "99999-9999", "joao@email.com"),
-            ("Maria", "Oliveira", "98765432100", "Gerente", "Rua B", "Jardim", "456", "Rio de Janeiro", "98765-432", "", "4000-0000", "98888-8888", "maria@email.com"),
-            ("Carlos", "Pereira", "11122334455", "Desenvolvedor", "Rua C", "Vila", "789", "Belo Horizonte", "11223-445", "", "5000-0000", "97777-7777", "carlos@email.com")
+            
         ]
     
     def validar_cpf(self, cpf):
