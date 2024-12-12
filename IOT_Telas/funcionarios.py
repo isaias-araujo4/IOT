@@ -158,8 +158,6 @@ class Funcionario:
             messagebox.showerror("Erro", "Digite um CPF para pesquisar!")
             return
 
-        messagebox.showinfo("Depuração", f"CPF procurado: {cpf_procurado}")  # Depuração
-
         for row in self.tabela.get_children():
             self.tabela.delete(row)
 
@@ -176,9 +174,6 @@ class Funcionario:
             self.tabela.delete(*self.tabela.get_children())
             for funcionario in self.funcionarios:
                 self.tabela.insert("", "end", values=funcionario)
-
-        messagebox.showinfo("Depuração", "Pesquisa concluída")  # Depuração
-
 
     def excluir_funcionario(self):
         cpf_procurado = self.cpf_entry.get()
