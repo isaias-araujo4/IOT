@@ -1,218 +1,30 @@
-from tkinter import *
-from tkinter import ttk
+Tutorial de Uso do Sistema IOT
 
-# Lista para armazenar os funcionários
-funcionarios = []
+execute o arquivo main.py para iniciar o sistema
 
-# Função para fechar o programa
-def fechar_programa():
-    root.destroy()
+1. Minimização de Páginas
+   - Caso as páginas de adicionar e editar desapareçam após uma mensagem, pressione `Alt + Tab` ou verifique na barra de tarefas; a página pode ter sido minimizada.
 
-# Função para salvar as informações do funcionário
-def salvar_funcionario(entry_nome, entry_sobrenome, entry_cpf, entry_cargo, entry_logradouro,
-                        entry_cidade, entry_bairro, entry_cep, entry_numero, entry_complemento,
-                        entry_telefone_fixo, entry_celular, entry_email):
-    # Obter os valores dos campos
-    nome = entry_nome.get()
-    sobrenome = entry_sobrenome.get()
-    cpf = entry_cpf.get()
-    cargo = entry_cargo.get()
-    logradouro = entry_logradouro.get()
-    cidade = entry_cidade.get()
-    bairro = entry_bairro.get()
-    cep = entry_cep.get()
-    numero = entry_numero.get()
-    complemento = entry_complemento.get()
-    telefone_fixo = entry_telefone_fixo.get()
-    celular = entry_celular.get()
-    email = entry_email.get()
+2. Formatação de Campos
+   - Datas: Utilize o formato "17/12/2024".
+   - Horas: Informe as horas como "15:00".
+   - Placas de Veículo: Use o formato "AAA4A44".
+   - Renavam: Informe como "01234567890".
+   - Chassi: Use "123456789abcdefgh", com 17 caracteres, números ou letras.
 
-    # Adicionar o novo funcionário à lista
-    funcionarios.append((nome, sobrenome, cpf, cargo, logradouro, cidade, bairro, cep, numero, complemento,
-                         telefone_fixo, celular, email))
+3. Documentos
+   - Documento (DOC): Apenas números.
+   - CPF: 11 dígitos numéricos.
+   - CNPJ: 14 dígitos numéricos.
 
-    # Voltar à página de funcionários
-    abrir_pagina_funcionario()
+4. Telefones
+   - Telefone Fixo:** Formato "xxxxxxxxx" (DDD seguido do número, tudo junto).
+   - Celular:** Formato "xxxxxxxxxxx" (DDD, seguido do 9 e do número, tudo junto).
 
-# Função para abrir a página de adicionar funcionário
-def abrir_pagina_adicionar_funcionario():
-    # Limpa a janela principal
-    for widget in root.winfo_children():
-        widget.destroy()
+5. Email
+   - Use o formato "teste@gmail.com", por exemplo.
 
-    # Título da página de adicionar funcionário
-    label_adicionar_funcionario = Label(root, text="Adicionar Funcionário", font=("Arial", 20, "bold"), bg="grey")
-    label_adicionar_funcionario.pack(pady=30)
+6. Quilometragem
+   - Retorno e Ida: Informe apenas números inteiros ou decimais.
 
-    # Frame para os campos de entrada
-    frame_formulario = Frame(root, bg="grey")
-    frame_formulario.pack(pady=20)
-
-    # Campos de entrada para informações pessoais
-    Label(frame_formulario, text="Nome:", bg="grey", font=("Arial", 12)).grid(row=0, column=0, padx=10, pady=5)
-    entry_nome = Entry(frame_formulario, font=("Arial", 12))
-    entry_nome.grid(row=0, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="Sobrenome:", bg="grey", font=("Arial", 12)).grid(row=1, column=0, padx=10, pady=5)
-    entry_sobrenome = Entry(frame_formulario, font=("Arial", 12))
-    entry_sobrenome.grid(row=1, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="CPF:", bg="grey", font=("Arial", 12)).grid(row=2, column=0, padx=10, pady=5)
-    entry_cpf = Entry(frame_formulario, font=("Arial", 12))
-    entry_cpf.grid(row=2, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="Cargo:", bg="grey", font=("Arial", 12)).grid(row=3, column=0, padx=10, pady=5)
-    entry_cargo = Entry(frame_formulario, font=("Arial", 12))
-    entry_cargo.grid(row=3, column=1, padx=10, pady=5)
-
-    # Campos de entrada para endereço
-    Label(frame_formulario, text="Logradouro:", bg="grey", font=("Arial", 12)).grid(row=4, column=0, padx=10, pady=5)
-    entry_logradouro = Entry(frame_formulario, font=("Arial", 12))
-    entry_logradouro.grid(row=4, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="Cidade:", bg="grey", font=("Arial", 12)).grid(row=5, column=0, padx=10, pady=5)
-    entry_cidade = Entry(frame_formulario, font=("Arial", 12))
-    entry_cidade.grid(row=5, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="Bairro:", bg="grey", font=("Arial", 12)).grid(row=6, column=0, padx=10, pady=5)
-    entry_bairro = Entry(frame_formulario, font=("Arial", 12))
-    entry_bairro.grid(row=6, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="CEP:", bg="grey", font=("Arial", 12)).grid(row=7, column=0, padx=10, pady=5)
-    entry_cep = Entry(frame_formulario, font=("Arial", 12))
-    entry_cep.grid(row=7, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="Número:", bg="grey", font=("Arial", 12)).grid(row=8, column=0, padx=10, pady=5)
-    entry_numero = Entry(frame_formulario, font=("Arial", 12))
-    entry_numero.grid(row=8, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="Complemento:", bg="grey", font=("Arial", 12)).grid(row=9, column=0, padx=10, pady=5)
-    entry_complemento = Entry(frame_formulario, font=("Arial", 12))
-    entry_complemento.grid(row=9, column=1, padx=10, pady=5)
-
-    # Campos de entrada para contato
-    Label(frame_formulario, text="Telefone Fixo:", bg="grey", font=("Arial", 12)).grid(row=10, column=0, padx=10, pady=5)
-    entry_telefone_fixo = Entry(frame_formulario, font=("Arial", 12))
-    entry_telefone_fixo.grid(row=10, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="Celular:", bg="grey", font=("Arial", 12)).grid(row=11, column=0, padx=10, pady=5)
-    entry_celular = Entry(frame_formulario, font=("Arial", 12))
-    entry_celular.grid(row=11, column=1, padx=10, pady=5)
-
-    Label(frame_formulario, text="Email:", bg="grey", font=("Arial", 12)).grid(row=12, column=0, padx=10, pady=5)
-    entry_email = Entry(frame_formulario, font=("Arial", 12))
-    entry_email.grid(row=12, column=1, padx=10, pady=5)
-
-    # Botões para salvar ou cancelar
-    frame_botoes = Frame(root, bg="grey")
-    frame_botoes.pack(pady=20)
-
-    btn_salvar = Button(frame_botoes, text="Salvar", width=20, bg="grey", bd=5, font="Arial 15",
-                        command=lambda: salvar_funcionario(entry_nome, entry_sobrenome, entry_cpf, entry_cargo,
-                                                          entry_logradouro, entry_cidade, entry_bairro, entry_cep,
-                                                          entry_numero, entry_complemento, entry_telefone_fixo,
-                                                          entry_celular, entry_email))
-    btn_cancelar = Button(frame_botoes, text="Cancelar", width=20, bg="grey", bd=5, font="Arial 15", command=iniciar_pagina_principal)
-
-    btn_salvar.grid(row=0, column=0, padx=10, pady=5)
-    btn_cancelar.grid(row=0, column=1, padx=10, pady=5)
-
-# Função para abrir a página de funcionários
-def abrir_pagina_funcionario():
-    # Limpa a janela principal
-    for widget in root.winfo_children():
-        widget.destroy()
-
-    # Nova página com conteúdo de funcionário
-    label_funcionario = Label(root, text="Página de Funcionário", font=("Arial", 20, "bold"), bg="grey")
-    label_funcionario.pack(pady=30)
-
-    # Criando a tabela (Treeview)
-    tabela = ttk.Treeview(root, columns=("Nome", "Sobrenome", "CPF", "Cargo"), show="headings")
-    tabela.pack(pady=10, padx=20)
-
-    # Definindo as colunas da tabela
-    tabela.heading("Nome", text="Nome")
-    tabela.heading("Sobrenome", text="Sobrenome")
-    tabela.heading("CPF", text="CPF")
-    tabela.heading("Cargo", text="Cargo")
-
-    # Definindo a largura das colunas
-    tabela.column("Nome", width=200)
-    tabela.column("Sobrenome", width=200)
-    tabela.column("CPF", width=150)
-    tabela.column("Cargo", width=200)
-
-    # Inserindo os funcionários na tabela
-    for funcionario in funcionarios:
-        tabela.insert("", "end", values=funcionario[:4])  # Exibindo apenas as colunas Nome, Sobrenome, CPF e Cargo
-
-    # Botões abaixo da tabela
-    frame_botoes = Frame(root, bg="grey")
-    frame_botoes.pack(pady=20)
-
-    btn_adicionar = Button(frame_botoes, text="Adicionar Funcionário", width=20, bg="grey", bd=5, font="Arial 15",
-                           command=abrir_pagina_adicionar_funcionario)
-    btn_pesquisar = Button(frame_botoes, text="Pesquisar", width=15, bg="grey", bd=5, font="Arial 15")
-    btn_editar = Button(frame_botoes, text="Editar", width=15, bg="grey", bd=5, font="Arial 15")
-    btn_excluir = Button(frame_botoes, text="Excluir", width=15, bg="grey", bd=5, font="Arial 15")
-
-    # Organização dos botões
-    btn_adicionar.grid(row=0, column=0, padx=10, pady=5)
-    btn_pesquisar.grid(row=0, column=1, padx=10, pady=5)
-    btn_editar.grid(row=0, column=2, padx=10, pady=5)
-    btn_excluir.grid(row=0, column=3, padx=10, pady=5)
-
-    # Botão para voltar para a página principal
-    btn_voltar = Button(root, text="Voltar", command=iniciar_pagina_principal, bg="grey", bd=5)
-    btn_voltar.pack(pady=10)
-
-# Função para iniciar a página principal
-def iniciar_pagina_principal():
-    # Limpa a janela principal
-    for widget in root.winfo_children():
-        widget.destroy()
-
-    # Mensagem de boas-vindas
-    label = Label(root, text="Bem-vindo ao IOT!", font=("Arial", 20, "bold"), bg="grey")
-    label.pack(pady=30)
-
-    # Botão de fechar no canto superior esquerdo
-    btn_fechar = Button(root, text="Fechar", command=fechar_programa, bg="grey", bd=5)
-    btn_fechar.place(x=10, y=10)
-
-    # Frame central para os botões principais
-    frame_central = Frame(root, bg="grey")
-    frame_central.pack(pady=50)
-
-    # Botões principais em duas colunas
-    btn_funcionario = Button(frame_central, text="Funcionário", width=20, bg="grey", bd=5, font="Arial 20", command=abrir_pagina_funcionario)
-    btn_cliente = Button(frame_central, text="Cliente", width=20, bg="grey", bd=5, font="Arial 20")
-    btn_fornecedor = Button(frame_central, text="Fornecedor", width=20, bg="grey", bd=5, font="Arial 20")
-    btn_produto = Button(frame_central, text="Produto", width=20, bg="grey", bd=5, font="Arial 20")
-    btn_manutencao = Button(frame_central, text="Manutenção", width=20, bg="grey", bd=5, font="Arial 20")
-    btn_caminhao = Button(frame_central, text="Caminhão", width=20, bg="grey", bd=5, font="Arial 20")
-
-    # Organização dos botões
-    btn_funcionario.grid(row=0, column=0, padx=10, pady=5)
-    btn_cliente.grid(row=1, column=0, padx=10, pady=5)
-    btn_fornecedor.grid(row=2, column=0, padx=10, pady=5)
-
-    btn_produto.grid(row=0, column=1, padx=10, pady=5)
-    btn_manutencao.grid(row=1, column=1, padx=10, pady=5)
-    btn_caminhao.grid(row=2, column=1, padx=10, pady=5)
-
-    # Ação de fechar o programa no botão de fechamento
-    root.protocol("WM_DELETE_WINDOW", fechar_programa)
-
-# Configurações da janela principal
-root = Tk()
-root.title("Gestão de Funcionários")
-root.geometry("800x600")
-root.configure(bg="grey")
-
-# Iniciar a página principal
-iniciar_pagina_principal()
-
-# Rodar a aplicação
-root.mainloop()
+Este guia garante que todas as informações sejam inseridas corretamente, evitando erros e facilitando o uso do sistema. Se precisar de mais orientações, estarei à disposição!
