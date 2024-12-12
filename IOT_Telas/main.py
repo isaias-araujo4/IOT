@@ -1,3 +1,7 @@
+#projeto: IOT
+#Turma: G88435/89686 DS
+#Alunos: Isaias Araujo, Samuel Sousa, Daniel Jorge
+
 from tkinter import *
 from tkinter import messagebox
 from funcionarios import Funcionario
