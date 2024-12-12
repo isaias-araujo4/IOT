@@ -134,7 +134,7 @@ class Funcionario:
                 return
     
         if not self.validar_telefone(celular):
-            messagebox.showerror("Erro", "Número de telefone inválido! Verifique o formato.")
+            messagebox.showerror("Erro", "Número de celular inválido! Verifique o formato.")
             return
 
         if not self.validar_email(email):
