@@ -219,7 +219,7 @@ class Cliente:
                 return
 
         # Se tudo estiver correto, adiciona o novo cliente à lista
-        self.clientes.append((nome, sobrenome, doc, logradouro, bairro, numero, cidade, cep, complemento, fixo, celular, email))
+        self.clientes.append((nome, sobrenome, doc,  logradouro, bairro, numero, cidade, cep, complemento, fixo, celular, email))
 
         # Atualiza a tabela diretamente
         self.exibir_tabela(self.janela_adicionar)

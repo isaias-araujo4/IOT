@@ -71,8 +71,6 @@ class Fluxo:
         add_button.pack(side=LEFT, padx=10)
         edit_button = Button(botoes_frame, text="Editar", command=self.editar_fluxo, font=("Arial", 12), width=10)
         edit_button.pack(side=LEFT, padx=10)
-        excluir_button = Button(botoes_frame, text="Excluir", command=self.excluir_fluxo, font=("Arial", 12), width=10)
-        excluir_button.pack(side=LEFT, padx=10)
 
     def adicionar_fluxo(self):
         self.janela_adicionar = Toplevel()
