@@ -92,8 +92,8 @@ class Fornecedor:
             ("Número:", "numero_entry"),
             ("Cidade:", "cidade_entry"),
             ("CEP:", "cep_entry"),
-            ("Complemento:", "complemento_entry"),
-            ("Fixo:", "fixo_entry"),
+            ("Complemento (Opcional):", "complemento_entry"),
+            ("Fixo (Opcional):", "fixo_entry"),
             ("Celular:", "celular_entry"),
             ("Email:", "email_entry")
         ]
@@ -220,8 +220,8 @@ class Fornecedor:
             ("Número:", "numero_entry", fornecedor_encontrado[6]),
             ("Cidade:", "cidade_entry", fornecedor_encontrado[7]),
             ("CEP:", "cep_entry", fornecedor_encontrado[8]),
-            ("Complemento:", "complemento_entry", fornecedor_encontrado[9]),
-            ("Fixo:", "fixo_entry", fornecedor_encontrado[10]),
+            ("Complemento (Opcional):", "complemento_entry", fornecedor_encontrado[9]),
+            ("Fixo (Opcional):", "fixo_entry", fornecedor_encontrado[10]),
             ("Celular:", "celular_entry", fornecedor_encontrado[11]),
             ("Email:", "email_entry", fornecedor_encontrado[12])
         ]

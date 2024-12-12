@@ -90,8 +90,8 @@ class Cliente:
             ("Número:", "numero_entry"),
             ("Cidade:", "cidade_entry"),
             ("CEP:", "cep_entry"),
-            ("Complemento:", "complemento_entry"),
-            ("Fixo:", "fixo_entry"),
+            ("Complemento (Opcional):", "complemento_entry"),
+            ("Fixo (Opcional):", "fixo_entry"),
             ("Celular:", "celular_entry"),
             ("Email:", "email_entry")
         ]
@@ -216,8 +216,8 @@ class Cliente:
             ("Número:", "numero_entry", cliente_encontrado[5]),
             ("Cidade:", "cidade_entry", cliente_encontrado[5]),
             ("CEP:", "cep_entry", cliente_encontrado[7]),
-            ("Complemento:", "complemento_entry", cliente_encontrado[8]),
-            ("Fixo:", "fixo_entry", cliente_encontrado[9]),
+            ("Complemento (Opcional):", "complemento_entry", cliente_encontrado[8]),
+            ("Fixo (Opcional):", "fixo_entry", cliente_encontrado[9]),
             ("Celular:", "celular_entry", cliente_encontrado[10]),
             ("Email:", "email_entry", cliente_encontrado[11])
         ]

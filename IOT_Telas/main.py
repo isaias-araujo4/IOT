@@ -4,7 +4,9 @@ from funcionarios import Funcionario
 from clientes import Cliente
 from fornecedores import Fornecedor
 from caminhões import Caminhao
-from fluxos import Fluxo  # Adicione esta linha
+from produtos import Produto
+from manutenções import Manutencao  # Adicione esta linha
+from fluxos import Fluxo  
 
 class Home:
     def __init__(self, root):
@@ -18,7 +20,9 @@ class Home:
         self.clientes = Cliente()
         self.fornecedores = Fornecedor()
         self.caminhoes = Caminhao()
-        self.fluxo = Fluxo(self.funcionarios.funcionarios, self.clientes.clientes, self.caminhoes.caminhoes)  # Adicione esta linha
+        self.produtos = Produto()
+        self.manutencoes = Manutencao(self.produtos.produtos, self.funcionarios.funcionarios, self.caminhoes.caminhoes)  # Adicione esta linha
+        self.fluxo = Fluxo(self.funcionarios.funcionarios, self.clientes.clientes, self.caminhoes.caminhoes)
 
         self.container = Frame(self.root, bg="grey")
         self.container.pack(fill=BOTH, expand=True)
@@ -38,7 +42,9 @@ class Home:
         Button(self.container, text="Cliente", width=20, command=self.pagina_cliente).pack(pady=10)
         Button(self.container, text="Fornecedor", width=20, command=self.pagina_fornecedor).pack(pady=10)
         Button(self.container, text="Caminhão", width=20, command=self.pagina_caminhao).pack(pady=10)
-        Button(self.container, text="Fluxo", width=20, command=self.pagina_fluxo).pack(pady=10)  # Adicione esta linha
+        Button(self.container, text="Produto", width=20, command=self.pagina_produto).pack(pady=10)
+        Button(self.container, text="Manutenção", width=20, command=self.pagina_manutencao).pack(pady=10)  # Adicione esta linha
+        Button(self.container, text="Fluxo", width=20, command=self.pagina_fluxo).pack(pady=10)
 
     def fechar_programa(self):
         self.root.quit()
@@ -54,8 +60,14 @@ class Home:
         
     def pagina_caminhao(self):
         self.caminhoes.pagina_caminhao(self.container, self.pagina_principal)
-    
-    def pagina_fluxo(self):  # Adicione este método
+
+    def pagina_produto(self):
+        self.produtos.pagina_produto(self.container, self.pagina_principal)
+
+    def pagina_manutencao(self):  # Adicione este método
+        self.manutencoes.pagina_manutencao(self.container, self.pagina_principal)
+
+    def pagina_fluxo(self):
         self.fluxo.pagina_fluxo(self.container, self.pagina_principal)
 
 if __name__ == "__main__":
